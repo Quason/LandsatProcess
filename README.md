@@ -1,3 +1,6 @@
 # LandsatProcess
-1. landsat data butch download
-2. image process
+1、图像批量解压；
+2、经纬度范围裁剪；
+3、自动对比度调整；
+4、水陆分离算法；
+5、Landsat7影像条带处理
