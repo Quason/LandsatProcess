@@ -458,10 +458,14 @@ for i=1:size(URLstr,2)
     if strcmp(URLstr{1,i},'cloudCoverFull')
         LocaCloud=i;
     end
+    if strcmp(URLstr{1,i},'DATA_TYPE_L1')
+        LocaType=i;
+    end
 end
 URLstr=URLstr(2:end,LocaURL);
+dataType=URLstr(2:end,LocaType);
 cloudCover=data(1:end,LocaCloud-7);
-keyC=cloudCover<=cloudCoverLim;
+keyC=(cloudCover<=cloudCoverLim) & (strcmp(dataType,'L1TP'));
 URLstr=URLstr(keyC);
 if exist('tempURL.csv','file')
     delete('tempURL.csv');

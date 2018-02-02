@@ -6,7 +6,7 @@ clc; clear
 %% 数据基本信息
 stert_path='120'; end_path='120';   % 行号
 start_row='39'; end_row='39';       % 列号
-startDate='1986-04-27'; endDate='1986-04-27'; % 起止日期
+startDate='1984-04-27'; endDate='1986-12-31'; % 起止日期
 
 % 传感器类型
 % sensor='LANDSAT_8_C1'; % L8 OLI(2013.4至今)
@@ -27,10 +27,14 @@ for i=1:size(URLstr,2)
     if strcmp(URLstr{1,i},'cloudCoverFull')
         LocaCloud=i;
     end
+    if strcmp(URLstr{1,i},'DATA_TYPE_L1')
+        LocaType=i;
+    end
 end
 URLstr_out=URLstr(2:end,LocaURL);
+dataType=URLstr(2:end,LocaType);
 cloudCover=data(1:end,LocaCloud-7); % 文本和数据相差7列
-keyC=cloudCover<=cloudCoverLim;
+keyC=(cloudCover<=cloudCoverLim) & (strcmp(dataType,'L1TP'));
 URLstr_out=URLstr_out(keyC);
 cloudCover=cloudCover(keyC);
 if exist('tempURL.csv','file')
